@@ -40,7 +40,7 @@ INSERT INTO questionaire_option(
 	(118, 'Polytechnische Oberschule der DDR mit Abschluss der 10. Klasse','radio',6),
 	(119, 'Fachhochschulreife','radio',7),
 	(120, 'Abitur/Allgemeine oder fachgebundene Hochschulreife (Gymnasium bzw. EOS, auch EOS mit Lehre)','radio',8),
-	(121, 'Einen anderen Schulabschluss','radio_text',9)
+	(121, 'Einen anderen Schulabschluss','radio_text',9),
 	
 	(122, 'Hauptschulabschluss oder gleichwertigen Abschluss','radio',1),
 	(123, 'Realschulabschluss (Mittlere Reife) oder gleichwertigen Abschluss','radio',2),
@@ -48,7 +48,7 @@ INSERT INTO questionaire_option(
 	(125, 'Abitur/Allgemeine oder fachgebundene Hochschulreife','radio',4),
 	(126, 'Einen anderen Schulabschluss','radio_text',5),
 	
-	(127, 'Wie hoch ist Ihr eigenes durchschnittliches monatliches Nettoeinkommen?','input_number',-1)
+	(127, 'Wie hoch ist Ihr eigenes durchschnittliches monatliches Nettoeinkommen?','input_number',-1),
 	
 	(201,'starke Ablehnung','radio',1),
 	(202,'Ablehnung','radio',2),
@@ -56,7 +56,7 @@ INSERT INTO questionaire_option(
 	(204,'weder Ablehnung noch Zustimmung','radio',4),
 	(205,'leichte Zustimmung','radio',5),
 	(206,'Zustimmung','radio',6),
-	(207,'starke Zustimmung','radio',7)
+	(207,'starke Zustimmung','radio',7),
 	
 	(301,'gar nicht','radio',1),
 	(302,'ein bisschen','radio',2),
@@ -82,9 +82,7 @@ INSERT INTO questionaire_option(
 	(604,'gelegentlich','radio',4),
 	(605,'oft','radio',5),
 	(606,'sehr oft','radio',6),
-	(607,'fast immer','radio',7)
-	
-	;
+	(607,'fast immer','radio',7);
 
 INSERT INTO page(
             id, text, title)
@@ -101,7 +99,7 @@ INSERT INTO page(
     (202, 'Meine Lebensbedingungen sind ausgezeichnet.', 'Fragebogen 2'),
 	(203, 'Ich bin mit meinem Leben zufrieden.', 'Fragebogen 2'),
 	(204, 'Bisher habe ich die wesentlichen Dinge erreicht, die ich mir für mein Leben wünsche.', 'Fragebogen 2'),
-	(205, 'Wenn ich mein Leben noch einmal leben könnte, würde ich kaum etwas ändern.', 'Fragebogen 2')
+	(205, 'Wenn ich mein Leben noch einmal leben könnte, würde ich kaum etwas ändern.', 'Fragebogen 2'),
 	
 	(301, 'aktiv','Fragebogen 3'),
 	(302, 'bekümmert','Fragebogen 3'),
@@ -149,13 +147,7 @@ INSERT INTO page(
 	(605, 'Ich habe traurige Stimmungen.', 'Fragebogen 6'),
 	(606, 'Ich finde es schwer, Entscheidungen zu treffen.', 'Fragebogen 6'),
 	(607, 'Am Anfang des Tages fühle ich mich am schlechtesten.', 'Fragebogen 6'),
-	(608, 'Ich sehe ohne Hoffnung in die Zukunft.', 'Fragebogen 6')
-	
-	
-	
-	
-	
-	;
+	(608, 'Ich sehe ohne Hoffnung in die Zukunft.', 'Fragebogen 6');
 
 
 INSERT INTO questionaire(
@@ -166,36 +158,30 @@ INSERT INTO questionaire(
 	(3,'Hier ein Erklärtext für Probanden','Fragebogen3 - PANAS'),
 	(4,'Hier ein Erklärtext für Probanden','Fragebogen4 - BFI-10'),
 	(5,'Hier ein Erklärtext für Probanden','Fragebogen5 - KSE-G'),
-	(6,'Hier ein Erklärtext für Probanden','Fragebogen 6 - Depressivität im nicht klinische Kontext')
-	
-	;
+	(6,'Hier ein Erklärtext für Probanden','Fragebogen 6 - Depressivität im nicht klinische Kontext');
 
 
 INSERT INTO questionaire_pages(
             questionaire_id, pages_id)
     VALUES 
-	(1,101),(1,102),(1,103),(1,104),(1,105),(1,106),(1,107),(1,108),(1,109),(1,110),(1,111),(1,112),(1,113),(1,114),(1,115),(1,116),(1,117),(1,118),(1,119),(1,120),(1,121),(1,122),(1,123),(1,124),(1,125),(1,126),(1,127),
+	(1,101),(1,102),(1,103),(1,104),(1,105),(1,106),
 	(2,201),(2,202),(2,203),(2,204),(2,205),
 	(3,301),(3,302),(3,303),(3,304),(3,305),(3,306),(3,307),(3,308),(3,309),(3,310),(3,311),(3,312),(3,313),(3,314),(3,315),(3,316),(3,317),(3,318),(3,319),(3,320),
 	(4,401),(4,402),(4,403),(4,404),(4,405),(4,406),(4,407),(4,408),(4,409),(4,410),
 	(5,501),(5,502),(5,503),(5,504),(5,505),(5,506),
-	(6,601),(6,602),(6,603),(6,604),(6,605),(6,606),(6,607),(6,608)
-	
-	;
+	(6,601),(6,602),(6,603),(6,604),(6,605),(6,606),(6,607),(6,608);
 
 
 INSERT INTO pages_questionaireoptions(
             pages_id, questionaireoptions_id)
     VALUES 
 	
-	(101,101)(101,102),
+	(101,101),(101,102),
 	(102,103),
 	(103,104),(103,105),(103,106),(103,107),(103,108),(103,109),(103,110),(103,111),(103,112),
 	(104,113),(104,114),(104,115),(104,116),(104,117),(104,118),(104,119),(104,120),(104,121),
-	(105,122)
 	(105,122),(105,123),(105,124),(105,125),(105,126),
-	(106,122),(106,123),(106,124),(106,125),(106,126),
-	(107,127),
+	(106,127),
 	
 	(201, 201),(201,202),(201,203),(201,204),(201,205),(201,206),(201,207),
 	(202, 201),(202,202),(202,203),(202,204),(202,205),(202,206),(202,207),
@@ -236,7 +222,5 @@ INSERT INTO pages_questionaireoptions(
     (605,601),(605,602),(605,603),(605,604),(605,605),(605,606),(605,607),
     (606,601),(606,602),(606,603),(606,604),(606,605),(606,606),(606,607),
     (607,601),(607,602),(607,603),(607,604),(607,605),(607,606),(607,607),
-    (608,601),(608,602),(608,603),(608,604),(608,605),(608,606),(608,607)
-	
-	;
+    (608,601),(608,602),(608,603),(608,604),(608,605),(608,606),(608,607);
 	
