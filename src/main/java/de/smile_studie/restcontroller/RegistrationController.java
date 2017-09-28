@@ -38,9 +38,9 @@ public class RegistrationController {
         Authority userAuthority = authorityRepository.findOne(1L);
         authorities.add(userAuthority);
         user.setAuthorities(authorities);
-
+        user.setState(0);
+        user.setInterventionGroup(-1);
         user.setPassword(passwordEncoder().encode(user.getPassword()));
-
         userRepository.save(user);
     }
 }

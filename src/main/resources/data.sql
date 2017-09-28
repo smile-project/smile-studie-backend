@@ -1,18 +1,6 @@
-/*
-INSERT INTO USERS (ID, USERNAME, PASSWORD) VALUES (1, 'admin@admin.com', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi');
-INSERT INTO USERS (ID, USERNAME, PASSWORD) VALUES (2, 'enabled@user.com', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC');
-INSERT INTO USERS (ID, USERNAME, PASSWORD) VALUES (3, 'disabled@user.com', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC');
-*/
 
 INSERT INTO AUTHORITY (ID, NAME) VALUES (1, 'ROLE_USER');
 INSERT INTO AUTHORITY (ID, NAME) VALUES (2, 'ROLE_ADMIN');
-
-/*
-INSERT INTO USER_AUTHORITY (USER_ID, AUTHORITY_ID) VALUES (1, 1);
-INSERT INTO USER_AUTHORITY (USER_ID, AUTHORITY_ID) VALUES (1, 2);
-INSERT INTO USER_AUTHORITY (USER_ID, AUTHORITY_ID) VALUES (2, 1);
-INSERT INTO USER_AUTHORITY (USER_ID, AUTHORITY_ID) VALUES (3, 1);
-*/
 
 INSERT INTO questionaire_option(
             id, text, type, value)
@@ -237,3 +225,10 @@ INSERT INTO pages_questionaireoptions(
     (607,601),(607,602),(607,603),(607,604),(607,605),(607,606),(607,607),
     (608,601),(608,602),(608,603),(608,604),(608,605),(608,606),(608,607);
 	
+INSERT INTO questionaire_interval(id, current_questionaire_id, next_questionaire_id, user_state, time_interval)
+VALUES
+(1, 1, 2, 0, 'P0S'), (2, 2, 3, 0, 'P0S'), (3, 3, 4, 0, 'P0S'), (4, 4, 5, 0, 'P0S'), (5, 5, 6, 0, 'P0S'),
+(6, 6, 2, 1, 'P7D'), (7, 2, 3, 1, 'P0S'), (8, 3, 6, 1, 'P0S');
+
+INSERT INTO intervention_group(id, title) VALUES
+(1, 'Masterarbeit - Experimentalgruppe'), (2, 'Masterarbeit - Placebogruppe'), (3, 'Masterarbeit - Wartelistengruppe');

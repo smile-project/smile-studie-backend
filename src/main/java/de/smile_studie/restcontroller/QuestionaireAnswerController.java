@@ -24,9 +24,10 @@ public class QuestionaireAnswerController {
     public JwtTokenUtil jwtTokenUtil;
 
     @RequestMapping(value = "/answer", method = RequestMethod.POST)
-    public Iterable<QuestionaireAnswer> answer(@RequestParam(value = "answer", defaultValue = "nix") String answer,
+    public Iterable<QuestionaireAnswer> answer(@RequestBody String answer,
                                                @RequestHeader("authorization") String token) {
         User user = jwtTokenUtil.getUserFromFullToken(token);
+        System.out.println(answer);
         QuestionaireAnswer qa = new QuestionaireAnswer();
         qa.setValueAnswer(new Random().nextInt(100));
         questionaireAnswerRepository.save(qa);

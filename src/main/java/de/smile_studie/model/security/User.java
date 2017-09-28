@@ -22,6 +22,10 @@ public class User {
     @NotNull
     private String password;
 
+    private int state;
+
+    private int interventionGroup;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_AUTHORITY",
@@ -61,4 +65,19 @@ public class User {
         this.authorities = authorities;
     }
 
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getInterventionGroup() {
+        return interventionGroup;
+    }
+
+    public void setInterventionGroup(int interventionGroup) {
+        this.interventionGroup = interventionGroup;
+    }
 }

@@ -1,7 +1,6 @@
 package de.smile_studie.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Time;
 
 /**
@@ -11,9 +10,9 @@ import java.sql.Time;
 public class InterventionAnswer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "intervention_answer_seq")
+    @SequenceGenerator(name = "intervention_answer_seq", sequenceName = "intervention_answer_seq")
     private long id;
-
-    private long interventionGroupId;
 
     private long userId;
 
