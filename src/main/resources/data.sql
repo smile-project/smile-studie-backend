@@ -2,6 +2,13 @@
 INSERT INTO AUTHORITY (ID, NAME) VALUES (1, 'ROLE_USER');
 INSERT INTO AUTHORITY (ID, NAME) VALUES (2, 'ROLE_ADMIN');
 
+/*
+Types
+radio
+input_number
+radio_text
+ */
+
 INSERT INTO questionaire_option(
             id, text, type, value)
     VALUES 

@@ -1,6 +1,9 @@
 package de.smile_studie.model;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Created by mss on 30.08.17.
@@ -17,9 +20,15 @@ public class QuestionaireAnswer {
 
     private long pageId;
 
+    private long answerId;
+
+    private long userId;
+
     private int valueAnswer;
 
     private String textAnswer;
+
+    private Timestamp timestamp;
 
     public long getId() {
         return id;
@@ -31,6 +40,7 @@ public class QuestionaireAnswer {
 
 
     public int getValueAnswer() {
+
         return valueAnswer;
     }
 
@@ -44,5 +54,46 @@ public class QuestionaireAnswer {
 
     public void setTextAnswer(String textAnswer) {
         this.textAnswer = textAnswer;
+    }
+
+
+    public long getQuestionaireId() {
+        return questionaireId;
+    }
+
+    public void setQuestionaireId(long questionaireId) {
+        this.questionaireId = questionaireId;
+    }
+
+    public long getPageId() {
+        return pageId;
+    }
+
+    public void setPageId(long pageId) {
+        this.pageId = pageId;
+    }
+
+    public long getAnswerId() {
+        return answerId;
+    }
+
+    public void setAnswerId(long answerId) {
+        this.answerId = answerId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }

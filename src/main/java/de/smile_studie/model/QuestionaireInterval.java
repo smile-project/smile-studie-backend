@@ -21,7 +21,7 @@ public class QuestionaireInterval {
 
     private long nextQuestionaireId;
 
-    private int state;
+    private int userState;
 
     private String timeInterval;
 
@@ -57,11 +57,11 @@ public class QuestionaireInterval {
         this.timeInterval = timeInterval;
     }
 
-    public int getState() {
-        return state;
+    public int getUserState() {
+        return userState;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setUserState(int userState) {
+        this.userState = userState;
     }
 }
