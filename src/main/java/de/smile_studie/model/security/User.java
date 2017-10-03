@@ -80,4 +80,5 @@ public class User {
     public void setInterventionGroup(int interventionGroup) {
         this.interventionGroup = interventionGroup;
     }
+
 }

@@ -1,12 +1,9 @@
 package de.smile_studie.restcontroller;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import de.smile_studie.model.Questionaire;
 import de.smile_studie.model.QuestionaireAnswer;
-import de.smile_studie.model.QuestionaireInterval;
 import de.smile_studie.model.security.User;
 import de.smile_studie.repository.QuestionaireAnswerRepository;
-import de.smile_studie.repository.QuestionaireIntervalRepository;
 import de.smile_studie.repository.QuestionaireRepository;
 import de.smile_studie.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +23,6 @@ public class QuestionaireController {
     @Autowired
     public QuestionaireRepository questionaireRepository;
 
-    @Autowired
-    public QuestionaireIntervalRepository questionaireIntervalRepository;
 
     @Autowired
     public QuestionaireAnswerRepository questionaireAnswerRepository;
@@ -45,19 +40,36 @@ public class QuestionaireController {
             return questionaireRepository.findOne(1L);
         }
 
-        QuestionaireInterval nextQuestionaireId = questionaireIntervalRepository.nextQuestionaireIdForUser(
-                lastAnswer.getQuestionaireId(), user.getState());
-
-        if (nextQuestionaireId.getTimeInterval().equals("P0S")) {
-            // next questionaire at once
-            return questionaireRepository.findOne(nextQuestionaireId.getNextQuestionaireId());
-        } else if (nextQuestionaireId.getTimeInterval().equals("P7D")) {
-            // check if 7 days have passed
-            if (timePassed(lastAnswer.getTimestamp())) {
-                return questionaireRepository.findOne(nextQuestionaireId.getNextQuestionaireId());
+        // first week
+        if (user.getState() == 0) {
+            // we are not done with our first round of questionaires
+            if (lastAnswer.getQuestionaireId() < 6L) {
+                return questionaireRepository.findOne(lastAnswer.getQuestionaireId() + 1);
             }
         }
 
+        // first week done
+        if (user.getState() == 1) {
+            // we are done with the first round, check if a week has passed
+            if (lastAnswer.getQuestionaireId() == 6L) {
+                if (timePassed(lastAnswer.getTimestamp())) {
+                    return questionaireRepository.findOne(2L);
+                } else {
+                    return null;
+                }
+            } else if (lastAnswer.getQuestionaireId() == 2L) {
+                return questionaireRepository.findOne(3L);
+            } else if (lastAnswer.getQuestionaireId() == 3L) {
+                return questionaireRepository.findOne(6L);
+            } else {
+                // this should never happen
+                // TODO: 03.10.17 log error
+                return null;
+            }
+        }
+
+        // this should enver happen
+        //TODO log error
         return null;
     }
 

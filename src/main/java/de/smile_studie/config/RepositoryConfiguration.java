@@ -14,7 +14,5 @@ public class RepositoryConfiguration extends RepositoryRestConfigurerAdapter{
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        //config.exposeIdsFor(Questionaire.class);
-        //config.exposeIdsFor(Page.class);
     }
 }
