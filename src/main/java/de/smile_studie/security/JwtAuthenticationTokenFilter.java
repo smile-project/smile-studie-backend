@@ -36,7 +36,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // authToken.startsWith("Bearer ")
         // String authToken = header.substring(7);
 
-        if(authToken != null && authToken.startsWith("Bearer ")) {
+        if (authToken != null && authToken.startsWith("Bearer ")) {
             authToken = authToken.substring(7);
         }
 
@@ -44,7 +44,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            logger.info("checking authentication für user " + username);
+            logger.info(username + " auth check");
 
 
             // It is not compelling necessary to load the use details from the database. You could also store the information
@@ -56,8 +56,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                logger.info("authenticated user " + username + ", setting security context");
+                logger.info(username + " authenticated");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                logger.info(username + " denied");
             }
         }
 

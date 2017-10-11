@@ -4,6 +4,8 @@ import de.smile_studie.security.JwtAuthenticationRequest;
 import de.smile_studie.security.JwtTokenUtil;
 import de.smile_studie.security.JwtUser;
 import de.smile_studie.security.service.JwtAuthenticationResponse;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,8 @@ public class AuthenticationRestController {
 
     @Value("${jwt.header}")
     private String tokenHeader;
+
+    private final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -52,6 +56,8 @@ public class AuthenticationRestController {
         // Reload password post-security so we can generate token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails, device);
+
+        logger.info("Login by: " + authenticationRequest.getUsername());
 
         // Return the token
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
