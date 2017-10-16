@@ -14,7 +14,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
-version = '0.0.1-SNAPSHOT'
+version = '0.1-alpha'
 sourceCompatibility = 1.8
 
 repositories {
@@ -33,18 +33,4 @@ dependencies {
 	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
-}
-
-jar {
-	manifest {
-		attributes(
-				'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-				'Main-Class': 'BackendRestApplication'
-		)
-	}
-
-	from {
-		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-	}
-
 }
