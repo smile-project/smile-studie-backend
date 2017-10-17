@@ -8,6 +8,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +40,7 @@ public class RegistrationController {
     public AuthorityRepository authorityRepository;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void register(@RequestBody User user) {
+    public ResponseEntity register(@RequestBody User user) {
         // just set authority to ROLE_USER, but we probably don't need it
         ArrayList<Authority> authorities = new ArrayList<>();
         Authority userAuthority = authorityRepository.findOne(1L);
@@ -48,7 +50,14 @@ public class RegistrationController {
         user.setInterventionGroup(-1);
         user.setPassword(passwordEncoder().encode(user.getPassword()));
         logger.info("Registering user: " + user.getUsername());
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            // probably already registered
+            logger.info(e);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return null;
         //TODO figure out how to catch constraint violation here
     }
 }
