@@ -1,8 +1,10 @@
 package de.smile_studie.restcontroller;
 
 import de.smile_studie.model.InterventionAnswer;
+import de.smile_studie.model.QuestionaireAnswer;
 import de.smile_studie.model.security.User;
 import de.smile_studie.repository.InterventionAnswerRepository;
+import de.smile_studie.repository.QuestionaireAnswerRepository;
 import de.smile_studie.security.JwtTokenUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,6 +31,9 @@ public class NextInterventionTimeController {
     @Autowired
     public InterventionAnswerRepository interventionAnswerRepository;
 
+    @Autowired
+    public QuestionaireAnswerRepository questionaireAnswerRepository;
+
     @RequestMapping(value = "/nextIntervention", method = RequestMethod.GET)
     public Timestamp answer(@RequestHeader("authorization") String token) {
         User user = jwtTokenUtil.getUserFromFullToken(token);
@@ -36,7 +41,17 @@ public class NextInterventionTimeController {
 
         if (user.getInterventionGroup() == 3 && user.getState() == 1) {
             // our control group, waits one week from the last questionaire
-            //TODO this
+            //TODO test this
+            QuestionaireAnswer answer = questionaireAnswerRepository.lastQuestionaireIdForUser(user.getId());
+            if (answer == null) {
+                // not really correct, but doesn't matter since we are blocked by the -1 group anyway
+                return null;
+            } else {
+                // add one week break
+                LocalDateTime lastQuestionaire = answer.getTimestamp().toLocalDateTime();
+                lastQuestionaire = lastQuestionaire.plusDays(7);
+                return Timestamp.valueOf(lastQuestionaire);
+            }
         }
 
         InterventionAnswer lastAnswer = interventionAnswerRepository.lastInterventionPosted(user.getId());

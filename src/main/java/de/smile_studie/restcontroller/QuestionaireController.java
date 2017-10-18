@@ -40,8 +40,6 @@ public class QuestionaireController {
         User user = jwtTokenUtil.getUserFromFullToken(token);
         QuestionaireAnswer lastAnswer = questionaireAnswerRepository.lastQuestionaireIdForUser(user.getId());
 
-        //TODO differentiate between different intervention groups (1 week pause group)
-
         // no questionaires yet
         if (lastAnswer == null) {
             logger.info("/questionaire: User " + user.getUsername() + " has no entries yet. Returning Q1");
