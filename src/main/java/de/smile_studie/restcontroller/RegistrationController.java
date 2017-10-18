@@ -57,7 +57,6 @@ public class RegistrationController {
             logger.info(e);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
-        return null;
-        //TODO figure out how to catch constraint violation here
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

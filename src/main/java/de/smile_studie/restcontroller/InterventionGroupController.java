@@ -24,6 +24,7 @@ public class InterventionGroupController {
     @RequestMapping(value = "/interventionGroup", method = RequestMethod.GET)
     public int answer(@RequestHeader("authorization") String token){
         User user = jwtTokenUtil.getUserFromFullToken(token);
+        logger.info("User " + user.getUsername() +" asked for group");
         return user.getInterventionGroup();
     }
 }

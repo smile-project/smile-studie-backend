@@ -52,6 +52,11 @@ public class QuestionaireAnswerController {
             user.setInterventionGroup(interventionGroup);
             user.setState(1);
             userRepository.save(user);
+        } else if (answers[0].getQuestionaireId() == 6 && user.getInterventionGroup() == 3 && user.getState() == 1) {
+            // we are a group 3 dude after the waiting week
+            logger.info("User " + user.getUsername() + " changed state to 2 -> past control week");
+            user.setState(2);
+            userRepository.save(user);
         }
     }
 
