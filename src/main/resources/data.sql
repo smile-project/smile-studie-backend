@@ -26,7 +26,7 @@ INSERT INTO questionaire_option(
 	
 	(113, 'Schüler/-in','radio',1),
 	(114, 'Kein Schulabschluss ','radio',2),
-	(115 'Hauptschulabschluss','radio',3),
+	(115, 'Hauptschulabschluss','radio',3),
 	(116, 'Realschulabschluss','radio',5),
 	(117, 'Fachhochschulreife','radio',7),
 	(118, 'Allgemeine/ fachgebundene Hochschulreife','radio',8),
