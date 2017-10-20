@@ -76,7 +76,7 @@ INSERT INTO questionaire_option(
 	
 	(701, 'Ja', 'radio',1),
 	(702, 'Nein', 'radio',2),
-	(703, 'Platz für deinen Text', radio_text, 3);
+	(703, 'Platz für deinen Text', 'radio_text', 3);
 
 INSERT INTO page(
             id, text, title)
