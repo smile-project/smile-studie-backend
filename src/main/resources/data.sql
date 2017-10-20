@@ -151,7 +151,7 @@ INSERT INTO questionaire(
     VALUES 
 	(1,'Wir möchten Ihnen ein paar Fragen stellen, um ihre Ergebnisse besser einordnen zu können', 'Demographische Daten 1/6'),
 	(2,'Es folgen fünf Aussagen, denen Sie zustimmen bzw. die Sie ablehnen können. Bitte benutzen Sie die folgende Skala von 1-7, um Ihre Zustimmung bzw. Ablehnung zu jeder Aussage zum Ausdruck zu bringen.','Fragebogen 2/6'),
-	(3,'Nun möchten wir gerne von Ihnen wissen, wie Sie sich fühlen. Die folgenden Wörter beschreiben unterschiedliche Gefühle und Empfindungen. Lesen Sie jedes Wort und tragen Sie dann in die Skala neben jedem Wort die Intensität ein. Sie haben die Möglichkeit, zwischen fünf Abstufungen zu wählen. Geben Sie bitte an, wie Sie sich in den letzten Wochen gefühlt haben.','Fragebogen 3/6'),
+	(3,'Die folgenden Wörter beschreiben unterschiedliche Gefühle und Empfindungen. Lesen Sie jedes Wort und tragen Sie dann in die Skala unter jedem Wort die Intensität ein.','Fragebogen 3/6'),
 	(4,'Inwieweit treffen die folgenden Aussagen auf Sie zu?','Fragebogen 4/6'),
 	(5,'Die folgenden Aussagen können auf Sie selbst mehr oder weniger zutreffen. Bitte geben Sie bei jeder Aussage an, wie sehr die Aussage auf Sie zutrifft.','Fragebogen 5/6'),
 	(6,'Nutzen Sie die nachfolgenden Antwortmöglichkeiten, um anzugeben, ob bzw. wie oft die folgenden Aussagen für Sie zutreffen. Es gibt keine richtigen oder falschen Antworten.','Fragebogen 6/6'),
