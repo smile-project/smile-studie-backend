@@ -141,7 +141,7 @@ INSERT INTO page(
 	(605, 'Ich habe traurige Stimmungen.', 'Fragebogen 6/6'),
 	(606, 'Ich finde es schwer, Entscheidungen zu treffen.', 'Fragebogen 6/6'),
 	(607, 'Am Anfang des Tages fühle ich mich am schlechtesten.', 'Fragebogen 6/6'),
-	(608, 'Ich sehe ohne Hoffnung in die Zukunft.', 'Fragebogen 6/6')
+	(608, 'Ich sehe ohne Hoffnung in die Zukunft.', 'Fragebogen 6/6'),
 	
 	(701, 'Gab es im Zeitraum der letzten Woche größere, objektive Veränderungen in ihrem Leben? Gemeint sind hier beispielsweise Heirat, oder Tod eines Angehörigen.', 'Feedback'),
 	(702, 'Gab es irgendwelche Schwierigkeiten beim Verwenden der App, oder möchten Sie uns etwas mitteilen?', 'Feedback');
@@ -154,7 +154,7 @@ INSERT INTO questionaire(
 	(3,'Nun möchten wir gerne von Ihnen wissen, wie Sie sich fühlen. Die folgenden Wörter beschreiben unterschiedliche Gefühle und Empfindungen. Lesen Sie jedes Wort und tragen Sie dann in die Skala neben jedem Wort die Intensität ein. Sie haben die Möglichkeit, zwischen fünf Abstufungen zu wählen. Geben Sie bitte an, wie Sie sich in den letzten Wochen gefühlt haben.','Fragebogen 3/6'),
 	(4,'Inwieweit treffen die folgenden Aussagen auf Sie zu?','Fragebogen 4/6'),
 	(5,'Die folgenden Aussagen können auf Sie selbst mehr oder weniger zutreffen. Bitte geben Sie bei jeder Aussage an, wie sehr die Aussage auf Sie zutrifft.','Fragebogen 5/6'),
-	(6,'Nutzen Sie die nachfolgenden Antwortmöglichkeiten, um anzugeben, ob bzw. wie oft die folgenden Aussagen für Sie zutreffen. Es gibt keine richtigen oder falschen Antworten.','Fragebogen 6/6')
+	(6,'Nutzen Sie die nachfolgenden Antwortmöglichkeiten, um anzugeben, ob bzw. wie oft die folgenden Aussagen für Sie zutreffen. Es gibt keine richtigen oder falschen Antworten.','Fragebogen 6/6'),
 	(7,'Vielen Dank für ihre Arbeit! Wenn Sie möchten können Sie uns noch Feedback geben.', 'Feedback');
 
 
