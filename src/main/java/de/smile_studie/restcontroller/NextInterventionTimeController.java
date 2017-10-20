@@ -41,23 +41,16 @@ public class NextInterventionTimeController {
 
         if (user.getInterventionGroup() == 3 && user.getState() == 1) {
             // our control group, waits one week from the last questionaire
-            //TODO test this
             QuestionaireAnswer answer = questionaireAnswerRepository.lastQuestionaireIdForUser(user.getId());
-            if (answer == null) {
-                // not really correct, but doesn't matter since we are blocked by the -1 group anyway
-                return null;
-            } else {
-                // add one week break
-                LocalDateTime lastQuestionaire = answer.getTimestamp().toLocalDateTime();
-                lastQuestionaire = lastQuestionaire.plusDays(7);
-                return Timestamp.valueOf(lastQuestionaire);
-            }
+            LocalDateTime lastQuestionaire = answer.getTimestamp().toLocalDateTime();
+            lastQuestionaire = lastQuestionaire.plusDays(7);
+            return Timestamp.valueOf(lastQuestionaire);
         }
 
         InterventionAnswer lastAnswer = interventionAnswerRepository.lastInterventionPosted(user.getId());
 
         if (lastAnswer == null) {
-            // no answer posted yet, immediately available
+            // no answer posted yet, immediately available, but we might be blocked by -1 group anyway
             return Timestamp.valueOf(LocalDateTime.now());
         } else {
             // normal case: next day 17:00
