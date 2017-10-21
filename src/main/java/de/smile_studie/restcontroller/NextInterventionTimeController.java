@@ -58,7 +58,7 @@ public class NextInterventionTimeController {
             logger.debug("last answer posted: " + answerPosted.toString());
 
             // first get between 16 and 17
-            if (answerPosted.getHour() > 17) {
+            if (answerPosted.getHour() >= 17) {
                 answerPosted = answerPosted.plusHours(24 - answerPosted.getHour() + 16);
             } else {
                 answerPosted = answerPosted.plusHours(16 - answerPosted.getHour());
