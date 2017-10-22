@@ -22,9 +22,15 @@ public class InterventionGroupController {
     public JwtTokenUtil jwtTokenUtil;
 
     @RequestMapping(value = "/interventionGroup", method = RequestMethod.GET)
-    public int answer(@RequestHeader("authorization") String token){
+    public int answer(@RequestHeader("authorization") String token) {
         User user = jwtTokenUtil.getUserFromFullToken(token);
-        logger.info("User " + user.getUsername() +" asked for group");
+        logger.info("User " + user.getUsername() + " asked for group");
+
+        if (user.getState() == 2) {
+            // emulate study group if we are past the study so people can continue using it
+            return 1;
+        }
+
         return user.getInterventionGroup();
     }
 }

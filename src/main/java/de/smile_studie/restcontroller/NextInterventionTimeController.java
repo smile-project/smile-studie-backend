@@ -43,6 +43,7 @@ public class NextInterventionTimeController {
             // our control group, waits one week from the last questionaire
             QuestionaireAnswer answer = questionaireAnswerRepository.lastQuestionaireIdForUser(user.getId());
             LocalDateTime lastQuestionaire = answer.getTimestamp().toLocalDateTime();
+            //TODO control group wait time
             lastQuestionaire = lastQuestionaire.plusDays(7);
             return Timestamp.valueOf(lastQuestionaire);
         }
@@ -56,6 +57,8 @@ public class NextInterventionTimeController {
             // normal case: next day 17:00
             LocalDateTime answerPosted = lastAnswer.getSubmissionDate().toLocalDateTime();
             logger.debug("last answer posted: " + answerPosted.toString());
+
+            // TODO next day calculation
 
             // first get between 16 and 17
             if (answerPosted.getHour() >= 17) {

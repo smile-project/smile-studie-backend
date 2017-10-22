@@ -44,7 +44,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            logger.info(username + " auth check");
+            logger.debug(username + " auth check");
 
 
             // It is not compelling necessary to load the use details from the database. You could also store the information
@@ -53,7 +53,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             try {
                 userDetails = this.userDetailsService.loadUserByUsername(username);
             } catch (Exception e){
-                logger.info(username + " denied");
+                logger.debug(username + " denied");
                 return;
             }
 
@@ -62,10 +62,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                logger.info(username + " authenticated");
+                logger.debug(username + " authenticated");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                logger.info(username + " denied");
+                logger.debug(username + " denied");
             }
         }
 

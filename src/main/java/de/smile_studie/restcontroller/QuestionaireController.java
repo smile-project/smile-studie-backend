@@ -77,6 +77,10 @@ public class QuestionaireController {
                 logger.info("/questionaire: User " + user.getUsername() +
                         " is past first week. Returning Q6");
                 return questionaireRepository.findOne(6L);
+            } else if (lastAnswer.getQuestionaireId() == 6L) {
+                logger.info("/questionaire: User " + user.getUsername() +
+                        " is past first week. Returning Q7");
+                return questionaireRepository.findOne(7L);
             } else {
                 // this should never happen
                 logger.error("Something went wrong in questionaire calculation for user " + user.getUsername()
@@ -84,6 +88,36 @@ public class QuestionaireController {
                 return null;
             }
         }
+
+        // every next week done
+        if (user.getState() == 2) {
+            // done with either first week or any week afterwards
+            if (lastAnswer.getQuestionaireId() == 7L || lastAnswer.getQuestionaireId() == 6L) {
+                if (timePassed(lastAnswer.getTimestamp())) {
+                    logger.info("/questionaire: User " + user.getUsername() +
+                            " is past second(or more) week and waited 7 days. Returning Q2");
+                    return questionaireRepository.findOne(2L);
+                } else {
+                    logger.info("/questionaire: User " + user.getUsername() +
+                            " requested a questionaire, but is still waiting since last questionaire round");
+                    return null;
+                }
+            } else if (lastAnswer.getQuestionaireId() == 2L) {
+                logger.info("/questionaire: User " + user.getUsername() +
+                        " is past second(or more) week. Returning Q3");
+                return questionaireRepository.findOne(3L);
+            } else if (lastAnswer.getQuestionaireId() == 3L) {
+                logger.info("/questionaire: User " + user.getUsername() +
+                        " is past second(or more) week. Returning Q6");
+                return questionaireRepository.findOne(6L);
+            } else {
+                // this should never happen
+                logger.error("Something went wrong in questionaire calculation for user " + user.getUsername()
+                        + ". This should never happen.");
+                return null;
+            }
+        }
+
 
         // this should never happen
         logger.error("Something went wrong in questionaire calculation for user " + user.getUsername()
@@ -93,10 +127,11 @@ public class QuestionaireController {
 
     /**
      * Check if at least 7 days passed since the last questionaire.
-     *
+     * <p>
      * Add 7 days to the past day and see if its still earlier than now -> at least 7 days have passed.
      */
     static boolean timePassed(Timestamp timestamp) {
+        //TODO questionaire interval
         LocalDateTime pastDateConverted = timestamp.toLocalDateTime();
         LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7L);
         LocalDateTime now = LocalDateTime.now();
