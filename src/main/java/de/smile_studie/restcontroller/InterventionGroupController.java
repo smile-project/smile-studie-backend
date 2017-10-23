@@ -26,7 +26,7 @@ public class InterventionGroupController {
         User user = jwtTokenUtil.getUserFromFullToken(token);
         logger.info("User " + user.getUsername() + " asked for group");
 
-        if (user.getState() == 2) {
+        if (user.getState() == 3) {
             // emulate study group if we are past the study so people can continue using it
             return 1;
         }

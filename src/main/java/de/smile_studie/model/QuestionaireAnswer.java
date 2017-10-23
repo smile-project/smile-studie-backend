@@ -26,6 +26,8 @@ public class QuestionaireAnswer {
 
     private int valueAnswer;
 
+    @Lob
+    @Column
     private String textAnswer;
 
     private Timestamp timestamp;

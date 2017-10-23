@@ -53,10 +53,15 @@ public class QuestionaireAnswerController {
             user.setInterventionGroup(interventionGroup);
             user.setState(1);
             userRepository.save(user);
-        } else if (answers[0].getQuestionaireId() == 7 && user.getState() == 1) {
-            // any user after the study end questionaire
-            logger.info("User " + user.getUsername() + " changed state to 2 -> past first week");
+        } else if (answers[0].getQuestionaireId() == 6 && user.getState() == 1) {
+            logger.info("User " + user.getUsername() + " changed state to intermediate state 2 -> " +
+                    "past first week before end questionaire");
             user.setState(2);
+            userRepository.save(user);
+        } else if (answers[0].getQuestionaireId() == 7 && user.getState() == 2) {
+            // any user after the study end questionaire
+            logger.info("User " + user.getUsername() + " changed state to 3 -> past first week");
+            user.setState(3);
             userRepository.save(user);
         }
     }

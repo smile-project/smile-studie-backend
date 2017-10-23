@@ -17,10 +17,16 @@ public class InterventionAnswer {
 
     private long userId;
 
+    @Lob
+    @Column
     private String answerInput1;
 
+    @Lob
+    @Column
     private String answerInput2;
 
+    @Lob
+    @Column
     private String answerInput3;
 
     private Timestamp submissionDate;

@@ -77,10 +77,6 @@ public class QuestionaireController {
                 logger.info("/questionaire: User " + user.getUsername() +
                         " is past first week. Returning Q6");
                 return questionaireRepository.findOne(6L);
-            } else if (lastAnswer.getQuestionaireId() == 6L) {
-                logger.info("/questionaire: User " + user.getUsername() +
-                        " is past first week. Returning Q7");
-                return questionaireRepository.findOne(7L);
             } else {
                 // this should never happen
                 logger.error("Something went wrong in questionaire calculation for user " + user.getUsername()
@@ -89,8 +85,20 @@ public class QuestionaireController {
             }
         }
 
-        // every next week done
         if (user.getState() == 2) {
+            if (lastAnswer.getQuestionaireId() == 6) {
+                logger.info("/questionaire: User " + user.getUsername() +
+                        " is past first week in intermediate state. Returning Q7");
+                return questionaireRepository.findOne(7L);
+            } else {
+                logger.error("Something went wrong in questionaire calculation for user " + user.getUsername()
+                        + ". This should never happen.");
+                return null;
+            }
+        }
+
+        // every next week done
+        if (user.getState() == 3) {
             // done with either first week or any week afterwards
             if (lastAnswer.getQuestionaireId() == 7L || lastAnswer.getQuestionaireId() == 6L) {
                 if (timePassed(lastAnswer.getTimestamp())) {
@@ -133,7 +141,11 @@ public class QuestionaireController {
     static boolean timePassed(Timestamp timestamp) {
         //TODO questionaire interval
         LocalDateTime pastDateConverted = timestamp.toLocalDateTime();
-        LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7L);
+
+        //LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7L);
+        //LocalDateTime pastDatePlusSeven = pastDateConverted.plusHours(1);
+        LocalDateTime pastDatePlusSeven = pastDateConverted.plusMinutes(30);
+
         LocalDateTime now = LocalDateTime.now();
         return pastDatePlusSeven.isBefore(now);
     }
