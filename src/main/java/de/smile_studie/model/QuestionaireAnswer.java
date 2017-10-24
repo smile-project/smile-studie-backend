@@ -26,8 +26,7 @@ public class QuestionaireAnswer {
 
     private int valueAnswer;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "VARCHAR(1000)")
     private String textAnswer;
 
     private Timestamp timestamp;

@@ -17,16 +17,13 @@ public class InterventionAnswer {
 
     private long userId;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "VARCHAR(1000)")
     private String answerInput1;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "VARCHAR(1000)")
     private String answerInput2;
 
-    @Lob
-    @Column
+    @Column(columnDefinition = "VARCHAR(1000)")
     private String answerInput3;
 
     private Timestamp submissionDate;
