@@ -37,7 +37,8 @@ public class NextInterventionTimeController {
     @RequestMapping(value = "/nextIntervention", method = RequestMethod.GET)
     public Timestamp answer(@RequestHeader("authorization") String token) {
         User user = jwtTokenUtil.getUserFromFullToken(token);
-        logger.info("User " + user.getUsername() + " asked for last intervention time");
+
+        //TODO log next time too
 
         if (user.getInterventionGroup() == 3 && user.getState() == 1) {
             // our control group, waits one week from the last questionaire
@@ -48,7 +49,7 @@ public class NextInterventionTimeController {
             //lastQuestionaire = lastQuestionaire.plusDays(7);
             //lastQuestionaire = lastQuestionaire.plusHours(1);
             lastQuestionaire = lastQuestionaire.plusMinutes(30);
-
+            logger.info("User " + user.getUsername() + " asked for next intervention time " + lastQuestionaire.toString());
             return Timestamp.valueOf(lastQuestionaire);
         }
 
@@ -56,6 +57,7 @@ public class NextInterventionTimeController {
 
         if (lastAnswer == null) {
             // no answer posted yet, immediately available, but we might be blocked by -1 group anyway
+            logger.info("User " + user.getUsername() + " asked for next intervention time " + LocalDateTime.now().toString());
             return Timestamp.valueOf(LocalDateTime.now());
         } else {
             // normal case: next day 17:00
@@ -76,7 +78,7 @@ public class NextInterventionTimeController {
             */
             //answerPosted = answerPosted.plusMinutes(10);
             answerPosted = answerPosted.plusMinutes(5);
-
+            logger.info("User " + user.getUsername() + " asked for next intervention time " + answerPosted.toString());
             return Timestamp.valueOf(answerPosted);
         }
     }
