@@ -17,8 +17,10 @@ public class Page {
     private long id;
 
     @NotNull
+    @Column(columnDefinition = "VARCHAR(500)")
     private String title;
 
+    @Column(columnDefinition = "VARCHAR(500)")
     private String text;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -3,6 +3,7 @@ package de.smile_studie.model.security;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class User {
     private int state;
 
     private int interventionGroup;
+
+    private Timestamp registrationDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -81,4 +84,12 @@ public class User {
         this.interventionGroup = interventionGroup;
     }
 
+
+    public Timestamp getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Timestamp registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 }

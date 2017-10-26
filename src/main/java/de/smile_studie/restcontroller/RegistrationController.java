@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -49,6 +51,7 @@ public class RegistrationController {
         user.setState(0);
         user.setInterventionGroup(-1);
         user.setPassword(passwordEncoder().encode(user.getPassword()));
+        user.setRegistrationDate(Timestamp.valueOf(LocalDateTime.now()));
         logger.info("Registering user: " + user.getUsername());
         try {
             userRepository.save(user);

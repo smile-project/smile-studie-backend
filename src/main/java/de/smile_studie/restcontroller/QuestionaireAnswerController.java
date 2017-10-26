@@ -1,7 +1,9 @@
 package de.smile_studie.restcontroller;
 
+import de.smile_studie.model.Email;
 import de.smile_studie.model.QuestionaireAnswer;
 import de.smile_studie.model.security.User;
+import de.smile_studie.repository.EmailRepository;
 import de.smile_studie.repository.QuestionaireAnswerRepository;
 import de.smile_studie.security.JwtTokenUtil;
 import de.smile_studie.security.repository.UserRepository;
@@ -10,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Random;
@@ -26,21 +29,29 @@ public class QuestionaireAnswerController {
     public QuestionaireAnswerRepository questionaireAnswerRepository;
 
     @Autowired
+    public EmailRepository emailRepository;
+
+    @Autowired
     public JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     public UserRepository userRepository;
-
-    private Random random = new Random();
 
     @RequestMapping(value = "/answer", method = RequestMethod.POST)
     public void answer(@RequestBody QuestionaireAnswer[] answers,
                        @RequestHeader("authorization") String token) {
         User user = jwtTokenUtil.getUserFromFullToken(token);
         for (QuestionaireAnswer answer : answers) {
-            answer.setUserId(user.getId());
-            answer.setTimestamp(Timestamp.from(Instant.now()));
-            questionaireAnswerRepository.save(answer);
+            if (answer.getQuestionaireId() == 7 && answer.getPageId() == 702) {
+                //value is our raffle email
+                Email studyFinishedEmail = new Email();
+                studyFinishedEmail.setEmail(answer.getTextAnswer());
+                emailRepository.save(studyFinishedEmail);
+            } else {
+                answer.setUserId(user.getId());
+                answer.setTimestamp(Timestamp.from(Instant.now()));
+                questionaireAnswerRepository.save(answer);
+            }
         }
 
         logger.info("User " + user.getUsername() + " answered Q" + answers[0].getQuestionaireId());
@@ -70,6 +81,7 @@ public class QuestionaireAnswerController {
      * Returns random int values between 1 and 3.
      */
     public int getRandomInterventionGroup() {
-        return this.random.nextInt(3) + 1;
+        Random random = new SecureRandom();
+        return random.nextInt(3) + 1;
     }
 }
