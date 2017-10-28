@@ -38,8 +38,6 @@ public class NextInterventionTimeController {
     public Timestamp answer(@RequestHeader("authorization") String token) {
         User user = jwtTokenUtil.getUserFromFullToken(token);
 
-        //TODO log next time too
-
         if (user.getInterventionGroup() == 3 && user.getState() == 1) {
             // our control group, waits one week from the last questionaire
             QuestionaireAnswer answer = questionaireAnswerRepository.lastQuestionaireIdForUser(user.getId());
@@ -76,6 +74,7 @@ public class NextInterventionTimeController {
             answerPosted = answerPosted.plusSeconds(60 - answerPosted.getSecond());
             answerPosted = answerPosted.plusMinutes(60 - answerPosted.getMinute());
             */
+
             //answerPosted = answerPosted.plusMinutes(10);
             answerPosted = answerPosted.plusMinutes(5);
             logger.info("User " + user.getUsername() + " asked for next intervention time " + answerPosted.toString());

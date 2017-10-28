@@ -37,6 +37,8 @@ public class QuestionaireAnswerController {
     @Autowired
     public UserRepository userRepository;
 
+    private int randomGroup = 1;
+
     @RequestMapping(value = "/answer", method = RequestMethod.POST)
     public void answer(@RequestBody QuestionaireAnswer[] answers,
                        @RequestHeader("authorization") String token) {
@@ -44,9 +46,14 @@ public class QuestionaireAnswerController {
         for (QuestionaireAnswer answer : answers) {
             if (answer.getQuestionaireId() == 7 && answer.getPageId() == 702) {
                 //value is our raffle email
-                Email studyFinishedEmail = new Email();
-                studyFinishedEmail.setEmail(answer.getTextAnswer());
-                emailRepository.save(studyFinishedEmail);
+                try {
+                    Email studyFinishedEmail = new Email();
+                    studyFinishedEmail.setEmail(answer.getTextAnswer());
+                    emailRepository.save(studyFinishedEmail);
+                } catch (Exception e) {
+                    // empty email or duplicate key, so just ignore exception
+                    logger.info("Something went wrong when saving email: " + answer.getTextAnswer());
+                }
             } else {
                 answer.setUserId(user.getId());
                 answer.setTimestamp(Timestamp.from(Instant.now()));
@@ -78,10 +85,15 @@ public class QuestionaireAnswerController {
     }
 
     /**
-     * Returns random int values between 1 and 3.
+     * The century old debate is over: Finally a TRUE SECURE RANDOM function.
      */
-    public int getRandomInterventionGroup() {
-        Random random = new SecureRandom();
-        return random.nextInt(3) + 1;
+    private int getRandomInterventionGroup() {
+        int currentGroup = this.randomGroup;
+        this.randomGroup++;
+        if (this.randomGroup == 4) {
+            this.randomGroup = 1;
+        }
+        logger.info("Next group is now: " + this.randomGroup);
+        return currentGroup;
     }
 }
