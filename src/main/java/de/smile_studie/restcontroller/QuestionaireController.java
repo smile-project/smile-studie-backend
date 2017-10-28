@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -26,6 +27,18 @@ public class QuestionaireController {
 
     private final Log logger = LogFactory.getLog(this.getClass());
 
+    private class NextQuestionaire {
+        public Timestamp nextQuestionaireTime;
+
+        public Timestamp getNextQuestionaireTime() {
+            return nextQuestionaireTime;
+        }
+
+        public void setNextQuestionaireTime(Timestamp nextQuestionaireTime) {
+            this.nextQuestionaireTime = nextQuestionaireTime;
+        }
+    }
+
     @Autowired
     public QuestionaireRepository questionaireRepository;
 
@@ -36,7 +49,7 @@ public class QuestionaireController {
     public JwtTokenUtil jwtTokenUtil;
 
     @RequestMapping(value = "/questionaire", method = RequestMethod.GET)
-    public Questionaire answer(@RequestHeader("authorization") String token) {
+    public Object answer(@RequestHeader("authorization") String token) {
         User user = jwtTokenUtil.getUserFromFullToken(token);
         QuestionaireAnswer lastAnswer = questionaireAnswerRepository.lastQuestionaireIdForUser(user.getId());
 
@@ -67,7 +80,9 @@ public class QuestionaireController {
                 } else {
                     logger.info("/questionaire: User " + user.getUsername() +
                             " requested a questionaire, but is still waiting since last questionaire round");
-                    return null;
+                    NextQuestionaire nextQuestionaire = new NextQuestionaire();
+                    nextQuestionaire.setNextQuestionaireTime(addWaitInterval(lastAnswer.getTimestamp()));
+                    return nextQuestionaire;
                 }
             } else if (lastAnswer.getQuestionaireId() == 2L) {
                 logger.info("/questionaire: User " + user.getUsername() +
@@ -108,7 +123,9 @@ public class QuestionaireController {
                 } else {
                     logger.info("/questionaire: User " + user.getUsername() +
                             " requested a questionaire, but is still waiting since last questionaire round");
-                    return null;
+                    NextQuestionaire nextQuestionaire = new NextQuestionaire();
+                    nextQuestionaire.setNextQuestionaireTime(addWaitInterval(lastAnswer.getTimestamp()));
+                    return nextQuestionaire;
                 }
             } else if (lastAnswer.getQuestionaireId() == 2L) {
                 logger.info("/questionaire: User " + user.getUsername() +
@@ -148,5 +165,12 @@ public class QuestionaireController {
 
         LocalDateTime now = LocalDateTime.now();
         return pastDatePlusSeven.isBefore(now);
+    }
+
+    static Timestamp addWaitInterval(Timestamp timestamp) {
+        LocalDateTime pastDateConverted = timestamp.toLocalDateTime();
+        //TODO next questionaire interval
+        LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7);
+        return Timestamp.valueOf(pastDatePlusSeven);
     }
 }
