@@ -4,10 +4,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -49,11 +51,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
             // It is not compelling necessary to load the use details from the database. You could also store the information
             // in the token and read it from it. It's up to you ;)
-            UserDetails userDetails;
+            UserDetails userDetails = null;
             try {
                 userDetails = this.userDetailsService.loadUserByUsername(username);
-            } catch (Exception e){
-                logger.debug(username + " denied");
+            } catch (UsernameNotFoundException e) {
+                logger.info(username + " denied, username not found");
+                chain.doFilter(request, response);
                 return;
             }
 
@@ -65,7 +68,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 logger.debug(username + " authenticated");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                logger.debug(username + " denied");
+                logger.info(username + " denied, token invalid");
+                chain.doFilter(request, response);
+                return;
             }
         }
 

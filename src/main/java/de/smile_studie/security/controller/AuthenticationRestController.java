@@ -81,7 +81,6 @@ public class AuthenticationRestController {
             return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
         } else {
             return ResponseEntity.badRequest().body(null);
-            //TODO see what happens if tokens cant get refreshed
         }
     }
 
