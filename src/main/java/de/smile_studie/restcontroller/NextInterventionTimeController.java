@@ -43,10 +43,10 @@ public class NextInterventionTimeController {
             QuestionaireAnswer answer = questionaireAnswerRepository.lastQuestionaireIdForUser(user.getId());
             LocalDateTime lastQuestionaire = answer.getTimestamp().toLocalDateTime();
 
-            //TODO control group wait time
-            //lastQuestionaire = lastQuestionaire.plusDays(7);
+            //TODO control group wait time 7 days in prod
+            lastQuestionaire = lastQuestionaire.plusDays(7);
             //lastQuestionaire = lastQuestionaire.plusHours(1);
-            lastQuestionaire = lastQuestionaire.plusMinutes(30);
+            //lastQuestionaire = lastQuestionaire.plusMinutes(30);
             logger.info("User " + user.getUsername() + " asked for next intervention time " + lastQuestionaire.toString());
             return Timestamp.valueOf(lastQuestionaire);
         }
@@ -62,8 +62,8 @@ public class NextInterventionTimeController {
             LocalDateTime answerPosted = lastAnswer.getSubmissionDate().toLocalDateTime();
             logger.debug("last answer posted: " + answerPosted.toString());
 
-            // TODO next day calculation
-            /*
+            // TODO next day calculation -> next day 17:00 in prod
+
             // first get between 16 and 17
             if (answerPosted.getHour() >= 17) {
                 answerPosted = answerPosted.plusHours(24 - answerPosted.getHour() + 16);
@@ -73,10 +73,10 @@ public class NextInterventionTimeController {
 
             answerPosted = answerPosted.plusSeconds(60 - answerPosted.getSecond());
             answerPosted = answerPosted.plusMinutes(60 - answerPosted.getMinute());
-            */
+
 
             //answerPosted = answerPosted.plusMinutes(10);
-            answerPosted = answerPosted.plusMinutes(5);
+            //answerPosted = answerPosted.plusMinutes(5);
             logger.info("User " + user.getUsername() + " asked for next intervention time " + answerPosted.toString());
             return Timestamp.valueOf(answerPosted);
         }

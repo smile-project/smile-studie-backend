@@ -156,12 +156,12 @@ public class QuestionaireController {
      * Add 7 days to the past day and see if its still earlier than now -> at least 7 days have passed.
      */
     static boolean timePassed(Timestamp timestamp) {
-        //TODO questionaire interval
+        //TODO questionaire interval 7 days in prod
         LocalDateTime pastDateConverted = timestamp.toLocalDateTime();
 
-        //LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7L);
+        LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7L);
         //LocalDateTime pastDatePlusSeven = pastDateConverted.plusHours(1);
-        LocalDateTime pastDatePlusSeven = pastDateConverted.plusMinutes(30);
+        //LocalDateTime pastDatePlusSeven = pastDateConverted.plusMinutes(30);
 
         LocalDateTime now = LocalDateTime.now();
         return pastDatePlusSeven.isBefore(now);
@@ -169,7 +169,7 @@ public class QuestionaireController {
 
     static Timestamp addWaitInterval(Timestamp timestamp) {
         LocalDateTime pastDateConverted = timestamp.toLocalDateTime();
-        //TODO next questionaire interval
+        //TODO next questionaire interval 7 days in prod
         LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7);
         return Timestamp.valueOf(pastDatePlusSeven);
     }
