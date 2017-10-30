@@ -78,10 +78,11 @@ public class QuestionaireController {
                             " is past first week and waited 7 days. Returning Q2");
                     return questionaireRepository.findOne(2L);
                 } else {
-                    logger.info("/questionaire: User " + user.getUsername() +
-                            " requested a questionaire, but is still waiting since last questionaire round");
                     NextQuestionaire nextQuestionaire = new NextQuestionaire();
                     nextQuestionaire.setNextQuestionaireTime(addWaitInterval(lastAnswer.getTimestamp()));
+                    logger.info("/questionaire: User " + user.getUsername() +
+                            " requested a questionaire, but is still waiting since last questionaire round." +
+                            "Next questionaire at: "+ nextQuestionaire);
                     return nextQuestionaire;
                 }
             } else if (lastAnswer.getQuestionaireId() == 2L) {
@@ -121,10 +122,11 @@ public class QuestionaireController {
                             " is past second(or more) week and waited 7 days. Returning Q2");
                     return questionaireRepository.findOne(2L);
                 } else {
-                    logger.info("/questionaire: User " + user.getUsername() +
-                            " requested a questionaire, but is still waiting since last questionaire round");
                     NextQuestionaire nextQuestionaire = new NextQuestionaire();
                     nextQuestionaire.setNextQuestionaireTime(addWaitInterval(lastAnswer.getTimestamp()));
+                    logger.info("/questionaire: User " + user.getUsername() +
+                            " requested a questionaire, but is still waiting since last questionaire round." +
+                            "Next questionaire at: "+ nextQuestionaire);
                     return nextQuestionaire;
                 }
             } else if (lastAnswer.getQuestionaireId() == 2L) {
