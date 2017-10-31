@@ -55,8 +55,11 @@ public class NextInterventionTimeController {
 
         if (lastAnswer == null) {
             // no answer posted yet, immediately available, but we might be blocked by -1 group anyway
-            logger.info("User " + user.getUsername() + " asked for next intervention time " + LocalDateTime.now().toString());
-            return Timestamp.valueOf(LocalDateTime.now());
+            LocalDateTime nextQuestionaireTime = LocalDateTime.now();
+            // remove 10 minutes to avoid time synch problems of a few seconds for some systems
+            nextQuestionaireTime = nextQuestionaireTime.minusMinutes(10);
+            logger.info("User " + user.getUsername() + " asked for next intervention time " + nextQuestionaireTime.toString());
+            return Timestamp.valueOf(nextQuestionaireTime);
         } else {
             // normal case: next day 17:00
             LocalDateTime answerPosted = lastAnswer.getSubmissionDate().toLocalDateTime();
