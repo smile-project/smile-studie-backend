@@ -44,9 +44,11 @@ public class NextInterventionTimeController {
             LocalDateTime lastQuestionaire = answer.getTimestamp().toLocalDateTime();
 
             //TODO control group wait time 7 days in prod
-            lastQuestionaire = lastQuestionaire.plusDays(7);
+            //lastQuestionaire = lastQuestionaire.plusDays(7);
             //lastQuestionaire = lastQuestionaire.plusHours(1);
             //lastQuestionaire = lastQuestionaire.plusMinutes(30);
+            lastQuestionaire = lastQuestionaire.plusMinutes(15);
+
             logger.info("User " + user.getUsername() + " asked for next intervention time " + lastQuestionaire.toString());
             return Timestamp.valueOf(lastQuestionaire);
         }
@@ -68,7 +70,7 @@ public class NextInterventionTimeController {
             // TODO next day calculation -> next day 17:00 in prod
 
             // first get between 16 and 17
-            if (answerPosted.getHour() >= 17) {
+            /*if (answerPosted.getHour() >= 17) {
                 answerPosted = answerPosted.plusHours(24 - answerPosted.getHour() + 16);
             } else {
                 answerPosted = answerPosted.plusHours(16 - answerPosted.getHour());
@@ -76,10 +78,11 @@ public class NextInterventionTimeController {
 
             answerPosted = answerPosted.plusSeconds(60 - answerPosted.getSecond());
             answerPosted = answerPosted.plusMinutes(60 - answerPosted.getMinute());
-
+            */
 
             //answerPosted = answerPosted.plusMinutes(10);
             //answerPosted = answerPosted.plusMinutes(5);
+            answerPosted = answerPosted.plusMinutes(2);
             logger.info("User " + user.getUsername() + " asked for next intervention time " + answerPosted.toString());
             return Timestamp.valueOf(answerPosted);
         }

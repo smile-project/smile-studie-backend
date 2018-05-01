@@ -8,6 +8,7 @@ import de.smile_studie.repository.QuestionaireRepository;
 import de.smile_studie.security.JwtTokenUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -161,9 +162,10 @@ public class QuestionaireController {
         //TODO questionaire interval 7 days in prod
         LocalDateTime pastDateConverted = timestamp.toLocalDateTime();
 
-        LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7L);
+        //LocalDateTime  = pastDateConverted.plusDays(7L);
         //LocalDateTime pastDatePlusSeven = pastDateConverted.plusHours(1);
         //LocalDateTime pastDatePlusSeven = pastDateConverted.plusMinutes(30);
+        LocalDateTime pastDatePlusSeven = pastDateConverted.plusMinutes(15);
 
         LocalDateTime now = LocalDateTime.now();
         return pastDatePlusSeven.isBefore(now);
@@ -172,7 +174,8 @@ public class QuestionaireController {
     static Timestamp addWaitInterval(Timestamp timestamp) {
         LocalDateTime pastDateConverted = timestamp.toLocalDateTime();
         //TODO next questionaire interval 7 days in prod
-        LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7);
+        //LocalDateTime pastDatePlusSeven = pastDateConverted.plusDays(7);
+        LocalDateTime pastDatePlusSeven = pastDateConverted.plusMinutes(15);
         return Timestamp.valueOf(pastDatePlusSeven);
     }
 }
