@@ -10,9 +10,10 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
+plugins {
+	id 'org.springframework.boot' version '1.5.6.RELEASE'
+	id 'java'
+}
 
 version = '1.0'
 sourceCompatibility = 1.8
@@ -23,14 +24,14 @@ repositories {
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile("org.springframework.boot:spring-boot-starter-security")
-	compile("org.springframework.boot:spring-boot-starter-mobile")
+	compile('org.springframework.boot:spring-boot-starter-data-rest:1.5.6.RELEASE')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.6.RELEASE')
+	compile("org.springframework.boot:spring-boot-starter-security:1.5.6.RELEASE")
+	compile("org.springframework.boot:spring-boot-starter-mobile:1.5.6.RELEASE")
 	compile("io.jsonwebtoken:jjwt:0.7.0")
 	compile('org.hsqldb:hsqldb')
 	runtime('org.postgresql:postgresql')
 	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.boot:spring-boot-starter-test:1.5.6.RELEASE')
 	testCompile('org.springframework.security:spring-security-test')
 }
